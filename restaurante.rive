@@ -1,0 +1,94 @@
++ hola
+- Hola, Soy un robot, esta es la informacion que te puedo ofrecer\n
+^ Nuestros telefonos\n
+^ Nuestra direccion\n
+^ Entregas\n
+^ Pagina web\n
+^ Horarios\n
+^ Menu\n
+
+! var lunes = Menu del Lunes\n 
+^ Chiles en nogada 20.50\n 
+^ Chilaquiles 15.50\n
+
+! var martes = Menu del Martes \n
+^ Pambasos 20.50 \n
+^ Huitlacoche 15.50 \n
+
+! var miercoles = Menu del Miercoles \n
+^ Enchiladas 120.50 \n
+^ Caldo de olla 15.50 \n
+
+! var jueves = Menu del Jueves \n
+^ Tacos 120.50 \n
+^ Quesadillas 15.50 \n
+
+! var viernes = Menu del Viernes \n
+^ Tortas 20.50 \n
+^ Tacos 15.50 \n
+
+! var sabado = Menu del Sabado \n
+^ Enchiladas 120.50 \n
+^ Huitlacoche 15.50 \n
+
+! var domingo = Los domingo esta cerrado
+
+! var horario = Lunes abrimos de 08:00 a 18:00\n
+^ Martes abrimos de 08:00 a 18:00\n
+^ Miercoles abrimos de 08:00 a 18:00\n
+^ Jueves abrimos de 08:00 a 18:00\n
+^ Viernes abrimos de 08:00 a 18:00\n
+^ Sabados abrimos de 08:00 a 12:00\n
+^ Domingos Cerrado\n
+
++ [*] lunes{weight=2} [*]
+- <bot lunes>
+
++ [*] martes{weight=2} [*]
+- <bot martes>
+
++ [*] miercoles{weight=2} [*]
+- <bot miercoles>
+
++ [*] jueves{weight=2} [*]
+- <bot jueves>
+
++ [*] viernes{weight=2} [*]
+- <bot viernes>
+
++ [*] sabado{weight=2} [*]
+- <bot sabado>
+
++ [*] domingo{weight=2} [*]
+- <bot domingo>
+
+
++ [*] (menu|carta) [*]
+- <bot lunes> \n <bot martes> \n <bot miercoles> \n <bot jueves> \n <bot viernes> \n <bot sabado> \n <bot domingo>
+
++ como estas
+@ hola
+
++ hay alguien*
+@ hola
+
++ [*] (telefono|celular|cel) [*]
+- Nuestro telefono es 725648221
+
++ [*] (direccion|ubicacion|lugar) [*]
+- Nuestra direccion Colonia Emiliano Zapata Acapulco Gro
+- Nos encontramos ubicados en la Colonia Emiliano Zapata Acapulco Gro
+
++ [*] (entregas|a domicilio) [*]
+- Realizamos entregas a domicilio solo de lunes a viernes de 12:00 a 15:00
+
++ [*] (pagina web|web|pagina) [*]
+- Visitanos en https://www.programadornovato.com
+
++ [*] (hora|horarios|dias|abierto){weight=3} [*]
+- <bot horario>
+
+
++ *
+- Recuerda que soy un robot, me podrías preguntar de otra forma
+- Intenta hacer tu pregunta de otra manera.

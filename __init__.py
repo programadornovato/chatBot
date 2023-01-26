@@ -25,8 +25,18 @@ def webhook_whatsapp():
     #ESCRIBIMOS EL NUMERO DE TELEFONO Y EL MENSAJE EN EL ARCHIVO TEXTO
     #SI HAY UN MENSAJE
     if mensaje is not None:
+      from rivescript import RiveScript
+      #INICIALIZAMOS RIVESCRIPT Y CARGAMOS LA CONVERSACION
+      bot = RiveScript()
+      bot.load_file('restaurante.rive')
+      bot.sort_replies()
+      #OBTENEMOS LA RESPUESTA
+      respuesta= bot.reply("localuser",mensaje)
+      respuesta=respuesta.replace("\\n","\\\n")
+      respuesta=respuesta.replace("\\","")
+
       f = open("texto.txt", "w")
-      f.write(mensaje)
+      f.write(respuesta)
       f.close()
       #RETORNAMOS EL STATUS EN UN JSON
       return jsonify({"status": "success"}, 200)
