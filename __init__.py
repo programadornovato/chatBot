@@ -34,10 +34,28 @@ def webhook_whatsapp():
       respuesta= bot.reply("localuser",mensaje)
       respuesta=respuesta.replace("\\n","\\\n")
       respuesta=respuesta.replace("\\","")
+      #CONECTAMOS A LA BASE DE DATOS
+      import mysql.connector
+      mydb = mysql.connector.connect(
+          host = "localhost",
+          user = "root",
+          password = "",
+          database='novato_chat'
+      )
+      mycursor = mydb.cursor()
+      query="SELECT count(id) AS cantidad FROM registro WHERE id_wa='" + idWA + "';"
+      mycursor.execute(query)
 
-      f = open("texto.txt", "w")
-      f.write(respuesta)
-      f.close()
+      cantidad, = mycursor.fetchone()
+      cantidad=str(cantidad)
+      cantidad=int(cantidad)
+      if cantidad==0 :
+        sql = ("INSERT INTO registro"+ 
+        "(mensaje_recibido,mensaje_enviado,id_wa      ,timestamp_wa   ,telefono_wa) VALUES "+
+        "('"+mensaje+"'   ,'"+respuesta+"','"+idWA+"' ,'"+timestamp+"','"+telefonoCliente+"');")
+        mycursor.execute(sql)
+        mydb.commit()
+
       #RETORNAMOS EL STATUS EN UN JSON
       return jsonify({"status": "success"}, 200)
 
